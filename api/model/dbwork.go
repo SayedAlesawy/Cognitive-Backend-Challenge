@@ -7,8 +7,8 @@ import (
 	"fmt"
 )
 
-// createCampaign A function to create a campaign record
-func createCampaign(db *sql.DB, campaign Campaign) bool {
+// CreateCampaign A function to create a campaign record
+func CreateCampaign(db *sql.DB, campaign Campaign) bool {
 	sqlStatement := sqlCreateCampaign
 
 	logMsgs := logger.LogInfo{
@@ -23,9 +23,9 @@ func createCampaign(db *sql.DB, campaign Campaign) bool {
 	return ok
 }
 
-// readCampaign A function to read a campaign record
-func readCampaign(db *sql.DB, id string) (Campaign, bool) {
-	sqlStatement := sqlReadCampaing
+// ReadCampaign A function to read a campaign record
+func ReadCampaign(db *sql.DB, id string) (Campaign, bool) {
+	sqlStatement := sqlReadCampaign
 
 	row := dbwrapper.ExecuteRowQuery(db, sqlStatement, id)
 
@@ -42,8 +42,58 @@ func readCampaign(db *sql.DB, id string) (Campaign, bool) {
 	return res, true
 }
 
-// updateCampaign A function to update a campaign record
-func updateCampaign(db *sql.DB, campaign Campaign) bool {
+// ReadCampaigns A function to read all campaigns
+func ReadCampaigns(db *sql.DB) []Campaign {
+	sqlStatement := sqlReadCampaigns
+
+	logMsgs := logger.LogInfo{
+		Success: "Campaigns selected Successfully",
+		Error:   "Campaigns selection failed",
+	}
+
+	rows, ok := dbwrapper.ExecuteRowsQuery(db, sqlStatement, logMsgs, false)
+	defer rows.Close()
+
+	var campaigns []Campaign
+	for rows.Next() {
+		var serialID int
+		var ID string
+		var Name string
+		var Country string
+		var Budget float32
+		var Goal string
+		var Category string
+		var URL string
+
+		err := rows.Scan(&serialID, &ID, &Name, &Country, &Budget, &Goal, &Category, &URL)
+		logger.LogDBErr(err, dbwrapper.LogSign, "ReadCampaigns(): Error while extracting results", false)
+
+		res := Campaign{
+			ID:       ID,
+			Name:     Name,
+			Country:  Country,
+			Budget:   Budget,
+			Goal:     Goal,
+			Category: Category,
+			URL:      URL,
+		}
+
+		campaigns = append(campaigns, res)
+	}
+
+	err := rows.Err()
+	logger.LogDBErr(err, dbwrapper.LogSign, "ReadCampaigns(): Error while extracting results", false)
+	logger.LogDBSuccess(err, dbwrapper.LogSign, "Campaigns extracted successfully")
+
+	if ok == false {
+		campaigns = []Campaign{}
+	}
+
+	return campaigns
+}
+
+// UpdateCampaign A function to update a campaign record
+func UpdateCampaign(db *sql.DB, campaign Campaign) bool {
 	sqlStatement := sqlUpdateCampaign
 
 	logMsgs := logger.LogInfo{
@@ -53,13 +103,13 @@ func updateCampaign(db *sql.DB, campaign Campaign) bool {
 
 	ok := dbwrapper.ExecuteQuery(db, sqlStatement, logMsgs, false,
 		campaign.Name, campaign.Country, campaign.Budget, campaign.Goal,
-		campaign.Category, campaign.URL)
+		campaign.Category, campaign.URL, campaign.ID)
 
 	return ok
 }
 
-// deleteCampaign A function to delete a campaign record
-func deleteCampaign(db *sql.DB, id string) bool {
+// DeleteCampaign A function to delete a campaign record
+func DeleteCampaign(db *sql.DB, id string) bool {
 	sqlStatement := sqlDeleteCampaign
 
 	logMsgs := logger.LogInfo{

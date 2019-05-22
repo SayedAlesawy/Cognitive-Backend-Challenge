@@ -3,7 +3,7 @@ package campaign
 // SQLCreateCampaignsTable SQL to create the campaigns table
 const SQLCreateCampaignsTable string = `
 	CREATE TABLE campaigns (
-		id SERIAL PRIMARY KEY,
+		idd SERIAL PRIMARY KEY,
 		ID varchar(60) UNIQUE NOT NULL,
 		Name varchar(60) NOT NULL,
 		Country varchar(60) NOT NULL,
@@ -29,9 +29,14 @@ const sqlCreateCampaign string = `
 `
 
 // sqlReadCampaing SQL to read a campaign record
-const sqlReadCampaing string = `
+const sqlReadCampaign string = `
 	SELECT * FROM campaigns
 	WHERE ID = $1
+`
+
+// sqlReadCampaigns SQL to read all campaign records
+const sqlReadCampaigns string = `
+	SELECT * FROM campaigns
 `
 
 // sqlUpdateCampaign SQL to update a campaign record
