@@ -121,3 +121,60 @@ func DeleteCampaign(db *sql.DB, id string) bool {
 
 	return ok
 }
+
+// ChartCampaigns A function to fetch the data needed for the chart
+func ChartCampaigns(db *sql.DB, dimensions []string) []ChartResponse {
+	var dim string
+	for i := 0; i < len(dimensions); i++ {
+		dim += dimensions[i]
+
+		if i < len(dimensions)-1 {
+			dim += ", "
+		}
+	}
+
+	sqlStatement := fmt.Sprintf("SELECT %s, COUNT(ID) FROM campaigns GROUP BY %s", dim, dim)
+
+	logMsgs := logger.LogInfo{
+		Success: "Chart selected Successfully",
+		Error:   "Chart selection failed",
+	}
+
+	rows, ok := dbwrapper.ExecuteRowsQuery(db, sqlStatement, logMsgs, false)
+	defer rows.Close()
+
+	var chart []ChartResponse
+	for rows.Next() {
+		var Key1 string
+		var Key2 string
+		var Value int
+
+		if len(dimensions) == 2 {
+			err := rows.Scan(&Key1, &Key2, &Value)
+			logger.LogDBErr(err, dbwrapper.LogSign, "ChartCampaigns(): Error while extracting results", false)
+		}
+
+		if len(dimensions) == 1 {
+			err := rows.Scan(&Key1, &Value)
+			logger.LogDBErr(err, dbwrapper.LogSign, "ChartCampaigns(): Error while extracting results", false)
+		}
+
+		res := ChartResponse{
+			Key1:  Key1,
+			Key2:  Key2,
+			Value: Value,
+		}
+
+		chart = append(chart, res)
+	}
+
+	err := rows.Err()
+	logger.LogDBErr(err, dbwrapper.LogSign, "ChartCampaigns(): Error while extracting results", false)
+	logger.LogDBSuccess(err, dbwrapper.LogSign, "Chart extracted successfully")
+
+	if ok == false {
+		chart = []ChartResponse{}
+	}
+
+	return chart
+}

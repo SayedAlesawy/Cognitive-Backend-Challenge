@@ -106,8 +106,21 @@ func handleDeleteCampaign(writer http.ResponseWriter, req *http.Request) {
 	campaign.DeleteCampaign(db, id)
 }
 
+// handleChartData A function to handle chart requests
 func handleChartData(writer http.ResponseWriter, req *http.Request) {
+	params := req.URL.Query()
 
+	var dimensions []string
+
+	for _, value := range params {
+		if len(value) > 0 {
+			dimensions = append(dimensions, value[0])
+		}
+	}
+
+	chart := campaign.ChartCampaigns(db, dimensions)
+
+	json.NewEncoder(writer).Encode(chart)
 }
 
 func main() {

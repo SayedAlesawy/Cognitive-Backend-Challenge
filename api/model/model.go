@@ -22,3 +22,10 @@ type CategoryExtractionResponse struct {
 	URL      string   `json:"url,omitempty"`
 	Category Category `json:"category,omitempty"`
 }
+
+// ChartResponse Represnets the response sent back by the reporting endpoint
+type ChartResponse struct {
+	Key1  string
+	Key2  string
+	Value int
+}
