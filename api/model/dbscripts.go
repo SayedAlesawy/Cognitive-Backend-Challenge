@@ -22,27 +22,27 @@ const SQLDropCampaignsTable string = `
 // Defining all the CRUD operations from the campaign resource
 // CRUD => Create - Read - Update - Delete
 
-// SQLCreateCampaign SQL to create a new campaign record
-const SQLCreateCampaign string = `
+// sqlCreateCampaign SQL to create a new campaign record
+const sqlCreateCampaign string = `
 	INSERT INTO campaigns (ID, Name, Country, Budget, Goal, Category, URL)
 	VALUES ($1, $2, $3, $4, $5, $6, $7)
 `
 
-// SQLReadCampaing SQL to read a campaign record
-const SQLReadCampaing string = `
+// sqlReadCampaing SQL to read a campaign record
+const sqlReadCampaing string = `
 	SELECT * FROM campaigns
 	WHERE ID = $1
 `
 
-// SQLUpdateCampaign SQL to update a campaign record
-const SQLUpdateCampaign string = `
+// sqlUpdateCampaign SQL to update a campaign record
+const sqlUpdateCampaign string = `
 	UPDATE campaigns
 	SET Name = $1, Country = $2, Budget = $3, Goal = $4, Category = $5, URL = $6
 	WHERE ID = $7
 `
 
-// SQLDeleteCampaign SQL to delete a campaign record
-const SQLDeleteCampaign string = `
+// sqlDeleteCampaign SQL to delete a campaign record
+const sqlDeleteCampaign string = `
 	DELETE FROM campaigns
 	where ID = $1
 `
