@@ -10,3 +10,15 @@ type Campaign struct {
 	Category string  `json:"category,omitempty"` //Fetched from the category extraction service if not provided
 	URL      string  `json:"url,omitempty"`      //Used to fetched the category from the extraction service if not provided
 }
+
+// Category Represents the category returned by the API
+type Category struct {
+	Name string `json:"name,omitempty"`
+	ID   int    `json:"id,omitempty"`
+}
+
+// CategoryExtractionResponse Represents the response received by the category extraction API
+type CategoryExtractionResponse struct {
+	URL      string   `json:"url,omitempty"`
+	Category Category `json:"category,omitempty"`
+}
