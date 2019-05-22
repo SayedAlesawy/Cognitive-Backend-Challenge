@@ -1,7 +1,7 @@
 package dbwrapper
 
 import (
-	logger "Cognitive-Backend-Challenge/backend/utils/logger"
+	logger "Cognitive-Backend-Challenge/utils/logger"
 	"database/sql"
 	"fmt"
 	"os"
