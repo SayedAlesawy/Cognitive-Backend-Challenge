@@ -121,7 +121,13 @@ func handleChartData(writer http.ResponseWriter, req *http.Request) {
 
 	chart := campaign.ChartCampaigns(db, dimensions)
 
-	htmlRes := chartview.GenerateDualChart(chart)
+	var htmlRes string
+
+	if len(dimensions) == 1 {
+		htmlRes = chartview.GenerateMonoChart(chart)
+	} else {
+		htmlRes = chartview.GenerateDualChart(chart)
+	}
 
 	writer.Header().Set("Content-Type", "text/html; charset=utf-8")
 	fmt.Fprint(writer, htmlRes)

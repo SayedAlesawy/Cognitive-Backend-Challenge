@@ -17,6 +17,18 @@ type chartElement struct {
 	data []string
 }
 
+func extractMonoChartData(chart []campaign.ChartResponse) ([]string, []string) {
+	var labels []string
+	var values []string
+
+	for _, element := range chart {
+		labels = append(labels, element.Key1)
+		values = append(values, strconv.Itoa(element.Value))
+	}
+
+	return labels, values
+}
+
 func extractDualChartData(chart []campaign.ChartResponse) ([]string, []string, [][]string) {
 	var categories []string
 	var labels []string
@@ -148,6 +160,78 @@ func GenerateDualChart(chart []campaign.ChartResponse) string {
 		},
 		`, row.name, strings.Join(row.data, ","))
 	}
+
+	htmlScript3 := `
+		]
+		});
+		</script>
+	</body>
+	`
+
+	return htmlScript1 + htmlScript2 + htmlScript3
+}
+
+// GenerateMonoChart A function to generate a chart based on the given data with 1 keys
+func GenerateMonoChart(chart []campaign.ChartResponse) string {
+	labels, values := extractMonoChartData(chart)
+
+	htmlScript1 := `<!DOCTYPE html>
+	<head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/core.js"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com/modules/export-data.js"></script>
+	</head>
+	<body>
+		<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+		<script>
+		Highcharts.chart('container', {
+			chart: {
+				type: 'column'
+			},
+			title: {
+				text: 'Campaign Analysis'
+			},
+			subtitle: {
+				text: 'Source: campaignapi.com'
+			},
+			xAxis: {
+				categories: [
+					` + getCategorieString(labels) + `
+				],
+				crosshair: true
+			},
+			yAxis: {
+				min: 0,
+				title: {
+					text: 'Dimensions'
+				}
+			},
+			tooltip: {
+				headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+				pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+					'<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+				footerFormat: '</table>',
+				shared: true,
+				useHTML: true
+			},
+			plotOptions: {
+				column: {
+					pointPadding: 0.2,
+					borderWidth: 0
+				}
+			},
+			`
+	htmlScript2 := `
+		series: [
+		`
+
+	htmlScript2 += fmt.Sprintf(`
+		{
+			name: 'Count',
+			data: [%s] 
+		},
+		`, strings.Join(values, ","))
 
 	htmlScript3 := `
 		]
