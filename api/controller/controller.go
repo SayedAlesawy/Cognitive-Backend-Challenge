@@ -138,9 +138,9 @@ func main() {
 	db = dbwrapper.ConnectDB()
 	defer db.Close()
 
-	//Setup the DB
-	//dbwrapper.CleanUP(db, campaign.SQLDropCampaignsTable)
-	//dbwrapper.Migrate(db, campaign.SQLCreateCampaignsTable)
+	//Setup the DB, comment them out for later runs
+	dbwrapper.CleanUP(db, campaign.SQLDropCampaignsTable)
+	dbwrapper.Migrate(db, campaign.SQLCreateCampaignsTable)
 
 	//Acquire router
 	router := mux.NewRouter()
