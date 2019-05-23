@@ -3,13 +3,7 @@
     "GoVersion": "go1.8.3",
     "GodepVersion": "v74",
     "Packages":[
-        "Cognitive-Backend-Challenge/api/model",
-        "Cognitive-Backend-Challenge/api/view",
-        "Cognitive-Backend-Challenge/utils/database",
-        "Cognitive-Backend-Challenge/utils/logger",
-        "github.com/gorilla/mux",
-        "github.com/joho/godotenv",
-        "github.com/lib/pq"
+        "./..."
     ],
     "Deps": []
 }
