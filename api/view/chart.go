@@ -53,8 +53,6 @@ func extractDualChartData(chart []campaign.ChartResponse) ([]string, []string, [
 		keys[chartRes.Key2] = append(keys[chartRes.Key2], pair{key: chartRes.Key1, val: chartRes.Value})
 	}
 
-	fmt.Println("Keys = ", keys)
-
 	for _, label := range labels {
 		var tmp []string
 		for _, category := range categories {
