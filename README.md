@@ -110,3 +110,22 @@
         go run controller.go
     8- You can use the end points through postman, and the reporting end point through browser.
 
+* ### Examples
+    1- Key1 = Countries, Key2 = Categories
+    ![Counteries vs Categoies](/examples/1.png)
+
+    2- Key1 = Categories, Key2 = Countries
+    ![Counteries vs Categoies](/examples/2.png)
+
+    3- Key1 = Countries
+    ![Country vs Campaign count](/examples/3.png)
+
+    4- Key1 = Categories
+    ![Category vs Campaign count](/examples/4.png)
+
+    5- Key1 = Countries, Key2 = Categories
+    ![Goal vs Campaign count](/examples/5.png)
+
+    6- Key1 = Category, Key2 = Goal
+    ![Category vs Goal](/examples/6.png)
+
