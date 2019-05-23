@@ -1,4 +1,4 @@
-module github.com/heroku/Cognitive-Backend-Challenge
+module github.com/heroku/Cognitive-Backend-Challenge/api
 
 go 1.12
 
