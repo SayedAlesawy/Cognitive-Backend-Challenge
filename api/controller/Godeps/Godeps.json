@@ -1,0 +1,43 @@
+{
+	"ImportPath": "Cognitive-Backend-Challenge/api/controller",
+	"GoVersion": "go1.11",
+	"GodepVersion": "v80",
+	"Deps": [
+		{
+			"ImportPath": "Cognitive-Backend-Challenge/api/model",
+			"Rev": "49ba1e7ec424ac2c4d68e84fd388a762ee7d979b"
+		},
+		{
+			"ImportPath": "Cognitive-Backend-Challenge/api/view",
+			"Rev": "49ba1e7ec424ac2c4d68e84fd388a762ee7d979b"
+		},
+		{
+			"ImportPath": "Cognitive-Backend-Challenge/utils/database",
+			"Rev": "49ba1e7ec424ac2c4d68e84fd388a762ee7d979b"
+		},
+		{
+			"ImportPath": "Cognitive-Backend-Challenge/utils/logger",
+			"Rev": "49ba1e7ec424ac2c4d68e84fd388a762ee7d979b"
+		},
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.7.1-1-g2b0f1a9",
+			"Rev": "2b0f1a9565a1c3afd528952ddb44015628042784"
+		},
+		{
+			"ImportPath": "github.com/joho/godotenv",
+			"Comment": "v1.3.0-11-g864c8aa",
+			"Rev": "864c8aad691d1533e714cfe44a33f1dbf84e3d3c"
+		},
+		{
+			"ImportPath": "github.com/lib/pq",
+			"Comment": "v1.0.0-13-g4fa8397",
+			"Rev": "4fa8397aec667076b2411eb41f91b74507381493"
+		},
+		{
+			"ImportPath": "github.com/lib/pq/oid",
+			"Comment": "v1.0.0-13-g4fa8397",
+			"Rev": "4fa8397aec667076b2411eb41f91b74507381493"
+		}
+	]
+}
