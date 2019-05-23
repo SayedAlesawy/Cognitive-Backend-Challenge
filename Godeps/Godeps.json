@@ -1,0 +1,9 @@
+{
+    "ImportedPath": "Cognitive-Backend-Challenge",
+    "GoVersion": "go1.8.3",
+    "GodepVersion": "v74",
+    "Packages":[
+        "./..."
+    ],
+    "Deps": []
+}
