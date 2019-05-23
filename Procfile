@@ -1,1 +1,1 @@
-web: Cognitive-Backend-Challenge
+web: Cognitive-Backend-Challenge/api/controller
