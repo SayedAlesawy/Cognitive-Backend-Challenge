@@ -1,4 +1,6 @@
-module github.com/heroku/Cognitive-Backend-Challenge/api
+module github.com/heroku/Cognitive-Backend-Challenge/api/controller
+module github.com/heroku/Cognitive-Backend-Challenge/api/model
+module github.com/heroku/Cognitive-Backend-Challenge/api/viewchart
 
 go 1.12
 
