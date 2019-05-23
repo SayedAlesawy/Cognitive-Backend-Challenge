@@ -2,6 +2,7 @@ package main
 
 import (
 	campaign "Cognitive-Backend-Challenge/api/model"
+	chartview "Cognitive-Backend-Challenge/api/view"
 	dbwrapper "Cognitive-Backend-Challenge/utils/database"
 	logger "Cognitive-Backend-Challenge/utils/logger"
 	"database/sql"
@@ -120,7 +121,10 @@ func handleChartData(writer http.ResponseWriter, req *http.Request) {
 
 	chart := campaign.ChartCampaigns(db, dimensions)
 
-	json.NewEncoder(writer).Encode(chart)
+	htmlRes := chartview.GenerateDualChart(chart)
+
+	writer.Header().Set("Content-Type", "text/html; charset=utf-8")
+	fmt.Fprint(writer, htmlRes)
 }
 
 func main() {
